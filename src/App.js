@@ -14,7 +14,7 @@ function Navi() {
         <Nav.Link href="/adminPage/business" eventKey="link-1">Option 2</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/adminPage/client" eventKey="link-2">Disabled</Nav.Link>
+        <Nav.Link href="/adminPage/UserList" eventKey="link-2">회원</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link href="/adminPage/shop" eventKey="link-3">Option 2</Nav.Link>
@@ -35,7 +35,7 @@ function App() {
       <BrowserRouter>
         <Navi></Navi>
         <Routes>
-          <Route path="/userList" element={<UserList/>}/>
+          <Route path="/adminPage/UserList" element={<UserList/>}/>
         </Routes>
       </BrowserRouter>
     </div>
