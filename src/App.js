@@ -22,7 +22,9 @@ function Navi() {
       <Nav.Item>
         <Nav.Link href="/adminPage/board" eventKey="link-4">Disabled</Nav.Link>
       </Nav.Item>
-      
+      <Nav.Item>
+        <Nav.Link href="/adminPage/mealChart" eventKey="link-5">to meal chart</Nav.Link>
+      </Nav.Item>
     </Nav>
 
   );
@@ -36,6 +38,7 @@ function App() {
         <Navi></Navi>
         <Routes>
           <Route path="/userList" element={<UserList/>}/>
+          <Route path="/mealChart" element={<mealChart/>}/>
         </Routes>
       </BrowserRouter>
     </div>
