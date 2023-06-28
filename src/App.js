@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import UserList from './pages/userList/userList';
+import MealChart from './pages/meal/mealChart'; 
 
 function Navi() {
   return (
@@ -22,7 +23,9 @@ function Navi() {
       <Nav.Item>
         <Nav.Link href="/adminPage/board" eventKey="link-4">Disabled</Nav.Link>
       </Nav.Item>
-      
+      <Nav.Item>
+        <Nav.Link href="/adminPage/mealChart" eventKey="link-5">to meal chart</Nav.Link>
+      </Nav.Item>
     </Nav>
 
   );
@@ -36,6 +39,7 @@ function App() {
         <Navi></Navi>
         <Routes>
           <Route path="/userList" element={<UserList/>}/>
+          <Route path="/adminPage/mealChart" element={<MealChart/>}/>
         </Routes>
       </BrowserRouter>
     </div>
