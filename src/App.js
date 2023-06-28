@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import UserList from './pages/userList/userList';
-import {BasketPieChart} from './pages/dashBoard/dashBoard';
+import {BasketPieChart} from './pages/basket/basket';
 
 function Navi() {
   return (
