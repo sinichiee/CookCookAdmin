@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import UserList from './pages/userList/userList';
+import MealChart from './pages/meal/mealChart'; 
 
 function Navi() {
   return (
@@ -38,7 +39,7 @@ function App() {
         <Navi></Navi>
         <Routes>
           <Route path="/userList" element={<UserList/>}/>
-          <Route path="/mealChart" element={<mealChart/>}/>
+          <Route path="/adminPage/mealChart" element={<MealChart/>}/>
         </Routes>
       </BrowserRouter>
     </div>

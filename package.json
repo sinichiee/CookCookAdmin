@@ -1,8 +1,10 @@
 {
   "name": "admin",
   "version": "0.1.0",
+  "proxy" : "http://localhost",
   "private": true,
   "dependencies": {
+    "@nivo/core": "^0.83.0",
     "@nivo/pie": "^0.83.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -22,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "dev": "react-scripts dev",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "gaeunBuild": "xcopy /y /i /e build F:\\KH\\CookCook\\CookCook\\src\\main\\webapp\\resources\\adminPage"
