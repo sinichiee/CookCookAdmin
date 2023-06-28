@@ -57,6 +57,7 @@ const MyResponsiveLine = ({ data /* see data tab */ }) => (
                     {
                         on: 'hover',
                         style: {
+                            itemTextColor: '#000',
                             itemBackground: 'rgba(0, 0, 0, .03)',
                             itemOpacity: 1
                         }
@@ -73,3 +74,4 @@ const dashBoard = () => {
 }
 
 export default dashBoard;
+
