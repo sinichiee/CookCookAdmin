@@ -1,7 +1,6 @@
 import style from './basket.module.css';
 import * as React from 'react';
 import { ResponsivePie } from '@nivo/pie';
-import { QueryCache, QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 import { useState, useEffect } from 'react';
