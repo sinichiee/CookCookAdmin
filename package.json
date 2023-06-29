@@ -27,6 +27,8 @@
     "dev": "react-scripts dev",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "agjibuild": "xcopy /y /i /e build D:\\STSWorkspace\\CookCook\\src\\main\\webapp\\resources\\adminPage",
+    "sinheebuild": "xcopy /y /i /e build F:\\2023_01_SmartWeb\\STSWorkspace\\CookCook\\src\\main\\webapp\\resources\\adminPage",
     "gaeunBuild": "xcopy /y /i /e build F:\\KH\\CookCook\\CookCook\\src\\main\\webapp\\resources\\adminPage"
   },
   "eslintConfig": {
