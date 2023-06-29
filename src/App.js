@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import ClientUserList from './pages/userList/userList';
-import {MealPieChart, Pies} from './pages/gptCount/gptCount';
+import {Pies} from './pages/gptCount/gptCount';
 import DashBoard from './pages/dashBoard/dashBoard';
 
 function Navi() {
@@ -24,9 +24,6 @@ function Navi() {
       <Nav.Item>
         <Nav.Link href="/adminPage/board" eventKey="link-4">게시판</Nav.Link>
       </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="/adminPage/mealChart" eventKey="link-5">to meal chart</Nav.Link>
-      </Nav.Item>
        <Nav.Item>
        <Nav.Link href="/adminPage/UserList" eventKey="link-6">회원</Nav.Link>
        </Nav.Item>
@@ -44,7 +41,6 @@ function App() {
         <Routes>
           <Route path='/adminPage/main' element={<DashBoard/>}></Route>
           <Route path='/adminPage/basket' element={<Pies/>}></Route>
-          <Route path="/adminPage/mealChart" element={<MealPieChart/>}/>
           <Route path="/adminPage/userList" element={<ClientUserList/>}/>
         </Routes>
       </BrowserRouter>
