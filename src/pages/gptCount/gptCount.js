@@ -14,43 +14,38 @@ export const MealPieChart = () => {
     useEffect(() => {
         axios.post('/data/selectMealCount')
             .then((resp) => {
-
-                const tmp = [
-                    {
-                        "id": "mealFailTotal",
-                        "label": "Fail",
-                        "value": resp.data.mealFailTotal,
-                        "color": "hsl(328, 70%, 50%)"
-                    },
-                    {
-                      "id": "mealSuccessTotal",
-                      "label": "Success",
-                      "value":  resp.data.mealSuccessTotal,
-                      "color": "hsl(163, 70%, 50%)"
-                    },
-                ];
-
-                setMealCount(tmp);
+                setMealCount(resp.data);
             });
-
     }, [])
 
-    const handle = {
-        padClick: (mealCount) => {
-            console.log(mealCount);
+    const tmp = [
+        {
+            "id": "mealFailTotal",
+            "label": "Fail",
+            "value": mealCount.mealFailTotal,
+            "color": "hsl(328, 70%, 50%)"
         },
+        {
+          "id": "mealSuccessTotal",
+          "label": "Success",
+          "value":  mealCount.mealSuccessTotal,
+          "color": "hsl(163, 70%, 50%)"
+        },
+    ];
 
-        legendClick: (mealCount) => {
-            console.log(mealCount);
-        },
-    };
+    useEffect(()=>{
+        const timer = setInterval(()=>{
+            axios.get("/data/selectMealCount").then((resp)=>{setMealCount(resp.data)});
+        },5000);
+        return ()=>{clearInterval(timer)}
+    },[]);
 
     return (
         // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
         <Card {...''} style={{height:400}}>
         <CardHeader title="식단 생성 통계" subheader="" style={{float:'left'}}/>
             <ResponsivePie
-                data={mealCount}
+                data={tmp}
                 margin={{ top: 0, right: 40, bottom: 100, left: 40 }}
                 innerRadius={0.5}
                 padAngle={0.7}
