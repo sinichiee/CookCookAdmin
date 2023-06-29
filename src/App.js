@@ -28,6 +28,9 @@ function Navi() {
       <Nav.Item>
         <Nav.Link href="/adminPage/mealChart" eventKey="link-5">to meal chart</Nav.Link>
       </Nav.Item>
+       <Nav.Item>
+       <Nav.Link href="/adminPage/UserList" eventKey="link-6">회원</Nav.Link>
+       </Nav.Item>
     </Nav>
 
   );
@@ -44,6 +47,7 @@ function App() {
           <Route path='/adminPage/basket' element={<BasketPieChart/>}></Route>
           <Route path="/adminPage/userList" element={<UserList/>}/>
           <Route path="/adminPage/mealChart" element={<MealChart/>}/>
+
         </Routes>
       </BrowserRouter>
     </div>
