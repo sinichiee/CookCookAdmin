@@ -17,11 +17,11 @@ const UserList = () => {
       // 임의의 회원 데이터
       const clientUser = [
        axios.request({
-        url:"/admin/clientUserList"
+        // url:"/admin/clientUserList"
        })
       ];
 
-      setMembers(dummyMembers);
+      setMembers(clientUser);
       setTotalPages(1);
     } catch (error) {
       console.error(error);
