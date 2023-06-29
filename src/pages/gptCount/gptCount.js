@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ResponsivePie } from '@nivo/pie';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
 export const MealPieChart = () => {
 
@@ -14,17 +15,17 @@ export const MealPieChart = () => {
 
                 let tmp = [
                     {
+                        "id": "mealFailTotal",
+                        "label": "Fail",
+                        "value": resp.data.mealFailTotal,
+                        "color": "hsl(328, 70%, 50%)"
+                    },
+                    {
                       "id": "mealSuccessTotal",
                       "label": "Success",
                       "value":  resp.data.mealSuccessTotal,
                       "color": "hsl(163, 70%, 50%)"
                     },
-                    {
-                      "id": "mealFailTotal",
-                      "label": "Fail",
-                      "value": resp.data.mealFailTotal,
-                      "color": "hsl(328, 70%, 50%)"
-                    }
                 ];
 
                 setMealCount(tmp);
@@ -44,7 +45,7 @@ export const MealPieChart = () => {
 
     return (
         // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
-        <div style={{ width: '100%', height: '400px', margin: '0' }}>
+        <>
             <h2 style={{textAlign:'center'}}>식단 생성 통계</h2>
             <ResponsivePie
                 data={mealCount}
@@ -174,24 +175,23 @@ export const MealPieChart = () => {
                     }
                 ]}
             />
-        </div>
+        </>
     );
 };
 
 export const BasketPieChart = () => {
 
-    let [successBasket, setSuccessBasket] = useState(0);
-    let [failBasket, setFailBasket] = useState(0);
+    let [basketCount, setBasketCount] = useState({
+        "basketSuccess":0, "basketFail":0
+    });
 
     useEffect(()=>{
-        axios.get("/data/selectSuccessBasket").then((resp)=>{setSuccessBasket(resp.data)});
-        axios.get("/data/selectFailBasket").then((resp)=>{setFailBasket(resp.data)});
+        axios.get("/data/selectBasketCount").then((resp)=>{setBasketCount(resp.data)});
       }, []);
 
     useEffect(()=>{
         let timer = setInterval(()=>{
-            axios.get("/data/selectSuccessBasket").then((resp)=>{setSuccessBasket(resp.data)});
-            axios.get("/data/selectFailBasket").then((resp)=>{setFailBasket(resp.data)});
+            axios.get("/data/selectBasketCount").then((resp)=>{setBasketCount(resp.data)});
         },5000);
         return ()=>{clearInterval(timer)}
     },[]);
@@ -200,19 +200,19 @@ export const BasketPieChart = () => {
         {
           "id": "Success",
           "label": "Success",
-          "value": successBasket,
+          "value": basketCount.basketSuccess,
           "color": "hsl(163, 70%, 50%)"
         },
         {
           "id": "Fail",
           "label": "Fail",
-          "value": failBasket,
+          "value": basketCount.basketFail,
           "color": "hsl(328, 70%, 50%)"
         },
       ];
 
     return (
-        <div style={{width: '100%', height: '400px', }}>
+        <>
         <h2 style={{textAlign:'center'}}>재료 추출 통계</h2>
         <ResponsivePie
         data={basketData}
@@ -307,7 +307,7 @@ export const BasketPieChart = () => {
             }
         ]}
     />
-        </div>
+        </>
     );
 }
 
@@ -343,7 +343,7 @@ export const TotalPieChart = () => {
       ];
 
     return (
-        <div style={{width: '100%', height: '400px', }}>
+        <>
         <h2 style={{textAlign:'center'}}>총 이용 통계</h2>
         <ResponsivePie
         data={totalData}
@@ -438,16 +438,25 @@ export const TotalPieChart = () => {
             }
         ]}
     />
-        </div>
+        </>
     );
 }
 
 export const Pies = () => {
     return(
-        <div style={{display:'flex', width:"100%"}}>
-            <MealPieChart></MealPieChart>
-            <BasketPieChart></BasketPieChart>
-            <TotalPieChart></TotalPieChart>
-        </div>
+        <Container className='d-flex w-100'>
+            <Row className='w-100'>
+            <Col className='w-100' style={{height:'400px'}}>
+                <MealPieChart></MealPieChart>
+            </Col>
+            <Col className='w-100' style={{height:'400px'}}>
+                <BasketPieChart></BasketPieChart>
+            </Col>
+            <Col className='w-100' style={{height:'400px'}}>
+                <TotalPieChart></TotalPieChart>
+            </Col>
+            </Row>
+        </Container>
+
     )
 }
