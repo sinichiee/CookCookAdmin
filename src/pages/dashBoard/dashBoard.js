@@ -1,8 +1,18 @@
 import { ResponsiveLine } from '@nivo/line'
 import style from './dashBoard.module.css';
+import axios from 'axios';
+
 
 
 const dashBoard = () => {
+
+    axios.request({
+        url: "/data/"
+    }).then((resp) => {
+        
+    }).catch((error) => {
+        console.log(error);
+    })
 
     const data = [
         {
@@ -45,14 +55,7 @@ const dashBoard = () => {
                     "x": "bicycle",
                     "y": 288
                 },
-                {
-                    "x": "horse",
-                    "y": 252
-                },
-                {
-                    "x": "skateboard",
-                    "y": 159
-                },
+                
                 {
                     "x": "others",
                     "y": 133
@@ -65,7 +68,11 @@ const dashBoard = () => {
         <div className='container'>
             <div className={style.box}>
                 <div style={{ width: '300px', height: '150px', border: '1px solid black' }}>일일 총 방문자 수</div>
-                <div style={{ width: '300px', height: '150px', border: '1px solid black' }}>일일 ~~~~</div>
+                <div style={{ width: '300px', height: '150px', border: '1px solid black' }}>일일 GPT 사용 횟수</div>
+            </div>
+            <div className={style.box}>
+                <div style={{ width: '300px', height: '150px', border: '1px solid black' }}>판매자 총 회원 수</div>
+                <div style={{ width: '300px', height: '150px', border: '1px solid black' }}>이용자 총 회원 수</div>
             </div>
             <div style={{ width: '800px', height: '500px' }}>
                 <ResponsiveLine
