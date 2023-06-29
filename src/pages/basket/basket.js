@@ -13,7 +13,7 @@ export const BasketPieChart = () => {
         let timer = setInterval(()=>{
             axios.get("/data/selectSuccessBasket").then((resp)=>{setSuccessBasket(resp.data)});
             axios.get("/data/selectFailBasket").then((resp)=>{setFailBasket(resp.data)});
-        },2000);
+        },5000);
         return ()=>{clearInterval(timer)}
     },[]);
 
