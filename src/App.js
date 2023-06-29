@@ -2,7 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
-import UserList from './pages/userList/userList';
+import ClientUserList from './pages/userList/userList';
 import {BasketPieChart, Pies, TotalPieChart} from './pages/basket/basket';
 import MealChart from './pages/meal/mealChart'; 
 import DashBoard from './pages/dashBoard/dashBoard';
@@ -45,7 +45,7 @@ function App() {
         <Routes>
           <Route path='/adminPage/main' element={<DashBoard/>}></Route>
           <Route path='/adminPage/basket' element={<Pies/>}></Route>
-          <Route path="/adminPage/userList" element={<UserList/>}/>
+          <Route path="/adminPage/userList" element={<ClientUserList/>}/>
           <Route path="/adminPage/mealChart" element={<MealChart/>}/>
         </Routes>
       </BrowserRouter>
