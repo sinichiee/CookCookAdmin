@@ -7,6 +7,7 @@ import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } fro
 // mock
 import PRODUCTS from '../_mock/products';
 
+
 // ----------------------------------------------------------------------
 
 export default function ProductsPage() {
@@ -28,7 +29,7 @@ export default function ProductsPage() {
 
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
+          공구샵
         </Typography>
 
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
@@ -41,8 +42,9 @@ export default function ProductsPage() {
             <ProductSort />
           </Stack>
         </Stack>
-
-        <ProductList products={PRODUCTS} />
+        {/* 공구샵 리스트 뽑으러 감 */}
+        <ProductList />
+        
         <ProductCartWidget />
       </Container>
     </>
