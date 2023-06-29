@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import UserList from './pages/userList/userList';
 import {BasketPieChart} from './pages/basket/basket';
 import MealChart from './pages/meal/mealChart'; 
+import DashBoard from './pages/dashBoard/dashBoard';
 
 function Navi() {
   return (
@@ -27,6 +28,9 @@ function Navi() {
       <Nav.Item>
         <Nav.Link href="/adminPage/mealChart" eventKey="link-5">to meal chart</Nav.Link>
       </Nav.Item>
+       <Nav.Item>
+       <Nav.Link href="/adminPage/UserList" eventKey="link-6">회원</Nav.Link>
+       </Nav.Item>
     </Nav>
 
   );
@@ -39,9 +43,11 @@ function App() {
       <BrowserRouter>
         <Navi></Navi>
         <Routes>
+          <Route path='/adminPage/main' element={<DashBoard/>}></Route>
           <Route path='/adminPage/basket' element={<BasketPieChart/>}></Route>
           <Route path="/adminPage/userList" element={<UserList/>}/>
           <Route path="/adminPage/mealChart" element={<MealChart/>}/>
+
         </Routes>
       </BrowserRouter>
     </div>
