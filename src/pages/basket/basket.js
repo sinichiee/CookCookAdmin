@@ -1,20 +1,71 @@
 import style from './basket.module.css';
 import * as React from 'react';
 import { ResponsivePie } from '@nivo/pie';
+import { QueryCache, QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { BrowserRouter } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export const BasketPieChart = () => {
+
+    // const queryClient = new QueryClient({
+    //     queryCache:new QueryCache({
+    //         onError:(error, query)=>{
+    //             console.log('onError', error);
+    //         },
+    //         onSuccess:(data)=>{
+    //             console.log('onSuccess', data);
+    //         }
+    //     })
+    // });
+    // const root = ReactDOM.createRoot(document.getElementById('root'));
+    // root.render(
+    //     <QueryClientProvider client={queryClient}>
+    //         <Provider store={store}>
+    //             <BrowserRouter>
+    //                 <App></App>
+    //             </BrowserRouter>
+    //         </Provider>
+    //     </QueryClientProvider>
+    // )
+   
+
+    // let successBasket = useQuery("successBasket",()=>{
+    //     return(
+    //         axios.get("/data/selectSuccessBasket").then((resp)=>{
+    //             return resp;
+    //         }),
+    //         {staleTime:2000}
+    //     );
+    // });
+
+    // let failBasket = useQuery("failBasket",()=>{
+    //     return(
+    //         axios.post("/data/selectSuccessBasket").then((resp)=>{
+    //             return resp;
+    //         }),
+    //         {staleTime:2000}
+    //     );
+    // });
+
+    let [successBasket, setSuccessBasket] = useState(0);
+    let [failBasket, setFailBasket] = useState(0);
+    useEffect(()=>{
+        axios.get("/data/selectSuccessBasket").then((resp)=>{console.log(resp.data);setSuccessBasket(resp.data)});
+        axios.get("/data/selectFailBasket").then((resp)=>{console.log(resp.data);setFailBasket(resp.data)});
+      }, []);
 
     const myData = [
         {
           "id": "Success",
           "label": "Success",
-          "value": 786,
+          "value": successBasket,
           "color": "hsl(163, 70%, 50%)"
         },
         {
           "id": "Fail",
           "label": "Fail",
-          "value": 494,
+          "value": failBasket,
           "color": "hsl(328, 70%, 50%)"
         },
       ];
