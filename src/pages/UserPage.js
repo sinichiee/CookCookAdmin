@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // @mui
 import {
   Card,
@@ -34,11 +34,11 @@ import USERLIST from '../_mock/user';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
+  { id: 'name', label: 'BusinessId', alignRight: false },
+  { id: 'company', label: 'CompanyName', alignRight: false },
+  { id: 'role', label: 'Email', alignRight: false },
+  { id: 'isVerified', label: 'ReportCount', alignRight: false },
+  { id: 'status', label: 'Regdate', alignRight: false },
   { id: '' },
 ];
 
@@ -87,7 +87,7 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+ 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
@@ -146,6 +146,7 @@ export default function UserPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
+
   return (
     <>
       <Helmet>
@@ -155,10 +156,10 @@ export default function UserPage() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            User
+            ClientUser
           </Typography>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
+            BusinessUser
           </Button>
         </Stack>
 
