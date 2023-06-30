@@ -23,8 +23,9 @@ ShopProductCard.propTypes = {
   product: PropTypes.object,
 };
 
-export default function ShopProductCard() {
+export default function ShopProductCard({shop}) {
 
+  console.log({shop});
 
   return (
     <Card>
@@ -41,24 +42,34 @@ export default function ShopProductCard() {
               textTransform: 'uppercase',
             }}
           >
-            a
+            {shop.statusCode}
           </Label>
         )}
-        <StyledProductImg alt='a' src='a' />
+        <StyledProductImg alt='' src={shop.path + shop.sysName} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Link color="inherit" underline="hover">
-          <Typography variant="subtitle2" noWrap>
-            a
-          </Typography>
-        </Link>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Link color="inherit" underline="hover">
+            <Typography variant="subtitle1">
+              {shop.title}
+            </Typography>
+          </Link>
+        </Stack>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="subtitle1">
-            
-            &nbsp;
+          <a href="/shop/toShopRegister">
+            <Typography variant="subtitle1">
+              {shop.title}
+            </Typography>
+          </a>
+        </Stack>
 
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Typography variant="subtitle2" noWrap>
+            {shop.productName}
+            &nbsp;|&nbsp;
+            {shop.companyName}
           </Typography>
         </Stack>
       </Stack>

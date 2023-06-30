@@ -14,13 +14,18 @@ import ShopProductCard from '../../../pages/shop/shop';
 
 export default function ProductList() {
 
-  const [shopList, setShopList] = useState([]);
+  const [shopList, setShopList] = useState([
+    // {seq:1,writer:"Jane",message:"React Router"},
+    // {seq:2,writer:"Ryan",message:"Router Practice"},
+    // {seq:3,writer:"Tom",message:"Practice Hard"}
+  ]);
 
   useEffect(() => {
     axios.request({
       url: "/data/selectShopList"
     }).then((resp) => {
-      setShopList(resp.data);
+      setShopList(resp.data.shopList);
+      console.log(resp.data.shopList[0]);
     }).catch((error) => {
       console.log(error);
     })
@@ -28,9 +33,15 @@ export default function ProductList() {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} sm={6} md={3}>
-        <ShopProductCard />
-      </Grid>
+      
+        {
+          shopList.map((shop,i) => (
+            <Grid key={i} item xs={12} sm={6} md={3}>
+              <ShopProductCard shop={shop}/>
+            </Grid>
+          ))
+        }
+      
     </Grid>
   );
 }
