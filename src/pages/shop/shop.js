@@ -26,6 +26,14 @@ ShopProductCard.propTypes = {
 export default function ShopProductCard({shop}) {
 
   console.log({shop});
+  let status = "";
+  if(shop.statusCode === 1001){
+    status = "진행중";
+  }else if(shop.statusCode === 1002){
+    status = "공구 완료";
+  }else {
+    status = "공구 실패";
+  }
 
   return (
     <Card>
@@ -42,7 +50,7 @@ export default function ShopProductCard({shop}) {
               textTransform: 'uppercase',
             }}
           >
-            {shop.statusCode}
+            {status}
           </Label>
         )}
         <StyledProductImg alt='' src={shop.path + shop.sysName} />
@@ -50,15 +58,7 @@ export default function ShopProductCard({shop}) {
 
       <Stack spacing={2} sx={{ p: 3 }}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Link color="inherit" underline="hover">
-            <Typography variant="subtitle1">
-              {shop.title}
-            </Typography>
-          </Link>
-        </Stack>
-
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <a href="/shop/toShopRegister">
+          <a href={`http://localhost/shop/toShopApply?code=${shop.code}`}>
             <Typography variant="subtitle1">
               {shop.title}
             </Typography>
