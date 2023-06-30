@@ -6,6 +6,7 @@ import { Container, Stack, Typography } from '@mui/material';
 import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
 // mock
 import PRODUCTS from '../_mock/products';
+import ShopSearch from './shop/shopSearch';
 
 
 // ----------------------------------------------------------------------
