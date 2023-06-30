@@ -87,7 +87,7 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [members, setMembers] = useState([]);
+ 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
@@ -145,14 +145,7 @@ export default function UserPage() {
   const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
 
   const isNotFound = !filteredUsers.length && !!filterName;
-  useEffect(() => {
-    const fetchMembersData = async () => {
-      const membersData = await USERLIST();
-      setMembers(membersData);
-    };
 
-    fetchMembersData();
-  }, []);
 
   return (
     <>

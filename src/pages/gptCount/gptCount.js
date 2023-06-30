@@ -1,9 +1,11 @@
-import style from './gptCount.module.css';
+
 import * as React from 'react';
 import { ResponsivePie } from '@nivo/pie';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Card, CardHeader } from '@mui/material';
+import style from './gptCount.module.css';
 
 export const MealPieChart = () => {
 
@@ -12,44 +14,39 @@ export const MealPieChart = () => {
     useEffect(() => {
         axios.post('/data/selectMealCount')
             .then((resp) => {
-
-                let tmp = [
-                    {
-                        "id": "mealFailTotal",
-                        "label": "Fail",
-                        "value": resp.data.mealFailTotal,
-                        "color": "hsl(328, 70%, 50%)"
-                    },
-                    {
-                      "id": "mealSuccessTotal",
-                      "label": "Success",
-                      "value":  resp.data.mealSuccessTotal,
-                      "color": "hsl(163, 70%, 50%)"
-                    },
-                ];
-
-                setMealCount(tmp);
+                setMealCount(resp.data);
             });
-
     }, [])
 
-    const handle = {
-        padClick: (mealCount) => {
-            console.log(mealCount);
+    const tmp = [
+        {
+            "id": "mealFailTotal",
+            "label": "Fail",
+            "value": mealCount.mealFailTotal,
+            "color": "hsl(328, 70%, 50%)"
         },
+        {
+          "id": "mealSuccessTotal",
+          "label": "Success",
+          "value":  mealCount.mealSuccessTotal,
+          "color": "hsl(163, 70%, 50%)"
+        },
+    ];
 
-        legendClick: (mealCount) => {
-            console.log(mealCount);
-        },
-    };
+    useEffect(()=>{
+        const timer = setInterval(()=>{
+            axios.get("/data/selectMealCount").then((resp)=>{setMealCount(resp.data)});
+        },5000);
+        return ()=>{clearInterval(timer)}
+    },[]);
 
     return (
         // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
-        <>
-            <h2 style={{textAlign:'center'}}>식단 생성 통계</h2>
+        <Card {...''} style={{height:400}}>
+        <CardHeader title="식단 생성 통계" subheader="" style={{float:'left'}}/>
             <ResponsivePie
-                data={mealCount}
-                margin={{ top: 20, right: 80, bottom: 80, left: 80 }}
+                data={tmp}
+                margin={{ top: 0, right: 40, bottom: 100, left: 40 }}
                 innerRadius={0.5}
                 padAngle={0.7}
                 cornerRadius={3}
@@ -65,6 +62,7 @@ export const MealPieChart = () => {
                         ]
                     ]
                 }}
+                enableArcLinkLabels={false}
                 arcLinkLabelsSkipAngle={10}
                 arcLinkLabelsTextColor="#333333"
                 arcLinkLabelsThickness={2}
@@ -175,13 +173,13 @@ export const MealPieChart = () => {
                     }
                 ]}
             />
-        </>
+        </Card>
     );
 };
 
 export const BasketPieChart = () => {
 
-    let [basketCount, setBasketCount] = useState({
+    const [basketCount, setBasketCount] = useState({
         "basketSuccess":0, "basketFail":0
     });
 
@@ -190,7 +188,7 @@ export const BasketPieChart = () => {
       }, []);
 
     useEffect(()=>{
-        let timer = setInterval(()=>{
+        const timer = setInterval(()=>{
             axios.get("/data/selectBasketCount").then((resp)=>{setBasketCount(resp.data)});
         },5000);
         return ()=>{clearInterval(timer)}
@@ -212,16 +210,16 @@ export const BasketPieChart = () => {
       ];
 
     return (
-        <>
-        <h2 style={{textAlign:'center'}}>재료 추출 통계</h2>
+        <Card {...''} style={{height:400, }}>
+        <CardHeader title="재료 추출 통계" subheader="" style={{float:'left'}} />
         <ResponsivePie
         data={basketData}
-        margin={{ top: 20, right: 80, bottom: 80, left: 80 }}
+        margin={{ top: 0, right: 40, bottom: 100, left: 40 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        //pastel1,2,set3
+        // pastel1,2,set3
         colors={{ scheme: 'set3' }}
         borderWidth={1}
         borderColor={{
@@ -233,6 +231,7 @@ export const BasketPieChart = () => {
                 ]
             ]
         }}
+        enableArcLinkLabels={false}
         arcLinkLabelsSkipAngle={10}
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
@@ -307,12 +306,12 @@ export const BasketPieChart = () => {
             }
         ]}
     />
-        </>
+        </Card>
     );
 }
 
 export const TotalPieChart = () => {
-    let [totalCount, setTotalCount] = useState({
+    const [totalCount, setTotalCount] = useState({
         "totalSuccess":0, "totalFail":0
     });
 
@@ -321,7 +320,7 @@ export const TotalPieChart = () => {
       }, []);
 
     useEffect(()=>{
-        let timer = setInterval(()=>{
+        const timer = setInterval(()=>{
             axios.get("/data/selectTotalCount").then((resp)=>{setTotalCount(resp.data)});
         },5000);
         return ()=>{clearInterval(timer)}
@@ -343,16 +342,16 @@ export const TotalPieChart = () => {
       ];
 
     return (
-        <>
-        <h2 style={{textAlign:'center'}}>총 이용 통계</h2>
-        <ResponsivePie
+        <Card {...''} style={{height:400}}>
+        <CardHeader title="총 이용 통계" subheader="" style={{float:'left',}} />
+        <ResponsivePie 
         data={totalData}
-        margin={{ top: 20, right: 80, bottom: 80, left: 80 }}
+        margin={{ top: 0, right: 40, bottom: 100, left: 40 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        //pastel1,2,set3
+        // pastel1,2,set3
         colors={{ scheme: 'pastel2' }}
         borderWidth={1}
         borderColor={{
@@ -364,6 +363,7 @@ export const TotalPieChart = () => {
                 ]
             ]
         }}
+        enableArcLinkLabels={false}
         arcLinkLabelsSkipAngle={10}
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
@@ -438,7 +438,7 @@ export const TotalPieChart = () => {
             }
         ]}
     />
-        </>
+        </Card>
     );
 }
 
@@ -447,13 +447,13 @@ export const Pies = () => {
         <Container className='d-flex w-100'>
             <Row className='w-100'>
             <Col className='w-100' style={{height:'400px'}}>
-                <MealPieChart></MealPieChart>
+                <MealPieChart />
             </Col>
             <Col className='w-100' style={{height:'400px'}}>
-                <BasketPieChart></BasketPieChart>
+                <BasketPieChart />
             </Col>
             <Col className='w-100' style={{height:'400px'}}>
-                <TotalPieChart></TotalPieChart>
+                <TotalPieChart />
             </Col>
             </Row>
         </Container>
