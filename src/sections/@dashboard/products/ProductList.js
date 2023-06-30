@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { Stack } from 'react-bootstrap';
 import ShopProductCard from '../../../pages/shop/shop';
+import ShopSearch from '../../../pages/shop/shopSearch';
 
 
 // ----------------------------------------------------------------------
@@ -14,11 +16,7 @@ import ShopProductCard from '../../../pages/shop/shop';
 
 export default function ProductList() {
 
-  const [shopList, setShopList] = useState([
-    // {seq:1,writer:"Jane",message:"React Router"},
-    // {seq:2,writer:"Ryan",message:"Router Practice"},
-    // {seq:3,writer:"Tom",message:"Practice Hard"}
-  ]);
+  const [shopList, setShopList] = useState([]);
 
   useEffect(() => {
     axios.request({
@@ -32,16 +30,19 @@ export default function ProductList() {
   }, []);
 
   return (
-    <Grid container spacing={3}>
+    <>
+      <ShopSearch posts={shopList} />
       
+      <Grid container spacing={3}>
         {
-          shopList.map((shop,i) => (
+          shopList.map((shop, i) => (
             <Grid key={i} item xs={12} sm={6} md={3}>
-              <ShopProductCard shop={shop}/>
+              <ShopProductCard shop={shop} />
             </Grid>
           ))
         }
-      
-    </Grid>
+
+      </Grid>
+    </>
   );
 }
