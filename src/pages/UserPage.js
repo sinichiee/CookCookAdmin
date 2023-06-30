@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // @mui
 import {
   Card,
@@ -34,11 +34,10 @@ import USERLIST from '../_mock/user';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'BusinessId', alignRight: false },
-  { id: 'company', label: 'CompanyName', alignRight: false },
-  { id: 'role', label: 'Email', alignRight: false },
-  { id: 'isVerified', label: 'ReportCount', alignRight: false },
-  { id: 'status', label: 'Regdate', alignRight: false },
+  { id: 'name', label: 'Id', alignRight: false },
+  { id: 'company', label: 'Nickname', alignRight: false },
+  { id: 'role', label: 'Auth', alignRight: false },
+  { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
 
@@ -87,7 +86,7 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
- 
+
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
@@ -146,7 +145,6 @@ export default function UserPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
-
   return (
     <>
       <Helmet>
@@ -156,11 +154,11 @@ export default function UserPage() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            ClientUser
+            사용자 목록
           </Typography>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            BusinessUser
-          </Button>
+          {/* <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
+            계정 추가
+          </Button> */}
         </Stack>
 
         <Card>
@@ -180,7 +178,7 @@ export default function UserPage() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                    const { id, name, role, status, company, avatarUrl} = row;
                     const selectedUser = selected.indexOf(name) !== -1;
 
                     return (
@@ -201,8 +199,6 @@ export default function UserPage() {
                         <TableCell align="left">{company}</TableCell>
 
                         <TableCell align="left">{role}</TableCell>
-
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
 
                         <TableCell align="left">
                           <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
