@@ -1,5 +1,7 @@
 import { ResponsiveLine } from '@nivo/line';
 import { Card, CardHeader } from '@mui/material';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 
 export const BoardChart = () => {
@@ -14,38 +16,38 @@ export const BoardChart = () => {
         return `${formedMonth}/${formedDate}`;
     }
 
-    const boardData = [
+    const [boardData, setBoardData] = useState([
         {
             "id": "Review",
             "color": "hsl(242, 70%, 50%)",
             "data": [
                 {
                     "x": getFormedDate(6),
-                    "y": 47
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(5),
-                    "y": 15
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(4),
-                    "y": 134
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(3),
-                    "y": 109
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(2),
-                    "y": 16
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(1),
-                    "y": 89
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(0),
-                    "y": 285
+                    "y": 0
                 },
             ]
         },
@@ -55,31 +57,31 @@ export const BoardChart = () => {
             "data": [
                 {
                     "x": getFormedDate(6),
-                    "y": 8
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(5),
-                    "y": 126
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(4),
-                    "y": 42
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(3),
-                    "y": 45
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(2),
-                    "y": 161
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(1),
-                    "y": 107
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(0),
-                    "y": 115
+                    "y": 0
                 },
             ]
         },     
@@ -89,35 +91,162 @@ export const BoardChart = () => {
             "data": [
                 {
                     "x": getFormedDate(6),
-                    "y": 106
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(5),
-                    "y": 249
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(4),
-                    "y": 266
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(3),
-                    "y": 46
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(2),
-                    "y": 111
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(1),
-                    "y": 242
+                    "y": 0
                 },
                 {
                     "x": getFormedDate(0),
-                    "y": 109
+                    "y": 0
                 },
             ]
         },
-    ];
+    ]
+    );
+
+    const [recentBoard, setRecentBoard] = useState({
+        Announcement:[{regDate:getFormedDate(6), cnt:0}], 
+        Free:[{regDate:getFormedDate(6), cnt:0}], 
+        Review:[{regDate:getFormedDate(6), cnt:0}]
+    });
+
+    useEffect(()=>{
+        axios.get("/data/recentBoardCount")
+        .then((resp)=>{
+
+            const tmp = [
+                {
+                    "id": "Review",
+                    "color": "hsl(242, 70%, 50%)",
+                    "data": [
+                        {
+                            "x": getFormedDate(6),
+                            "y": resp.data.Review[0].cnt
+                        },
+                        {
+                            "x": getFormedDate(5),
+                            "y": resp.data.Review[1].cnt
+                        },
+                        {
+                            "x": getFormedDate(4),
+                            "y": resp.data.Review[2].cnt
+                        },
+                        {
+                            "x": getFormedDate(3),
+                            "y": resp.data.Review[3].cnt
+                        },
+                        {
+                            "x": getFormedDate(2),
+                            "y": resp.data.Review[4].cnt
+                        },
+                        {
+                            "x": getFormedDate(1),
+                            "y": resp.data.Review[5].cnt
+                        },
+                        {
+                            "x": getFormedDate(0),
+                            "y": resp.data.Review[6].cnt
+                        },
+                    ]
+                },
+                {
+                    "id": "Free",
+                    "color": "hsl(229, 70%, 50%)",
+                    "data": [
+                        {
+                            "x": getFormedDate(6),
+                            "y": resp.data.Free[0].cnt
+                        },
+                        {
+                            "x": getFormedDate(5),
+                            "y": resp.data.Free[1].cnt
+                        },
+                        {
+                            "x": getFormedDate(4),
+                            "y": resp.data.Free[2].cnt
+                        },
+                        {
+                            "x": getFormedDate(3),
+                            "y": resp.data.Free[3].cnt
+                        },
+                        {
+                            "x": getFormedDate(2),
+                            "y": resp.data.Free[4].cnt
+                        },
+                        {
+                            "x": getFormedDate(1),
+                            "y": resp.data.Free[5].cnt
+                        },
+                        {
+                            "x": getFormedDate(0),
+                            "y": resp.data.Free[6].cnt
+                        },
+                    ]
+                },     
+                {
+                    "id": "Announcement",
+                    "color": "hsl(66, 70%, 50%)",
+                    "data": [
+                        {
+                            "x": getFormedDate(6),
+                            "y": resp.data.Announcement[0].cnt
+                        },
+                        {
+                            "x": getFormedDate(5),
+                            "y": resp.data.Announcement[1].cnt
+                        },
+                        {
+                            "x": getFormedDate(4),
+                            "y": resp.data.Announcement[2].cnt
+                        },
+                        {
+                            "x": getFormedDate(3),
+                            "y": resp.data.Announcement[3].cnt
+                        },
+                        {
+                            "x": getFormedDate(2),
+                            "y": resp.data.Announcement[4].cnt
+                        },
+                        {
+                            "x": getFormedDate(1),
+                            "y": resp.data.Announcement[5].cnt
+                        },
+                        {
+                            "x": getFormedDate(0),
+                            "y": resp.data.Announcement[6].cnt
+                        },
+                    ]
+                },
+            ]
+            setBoardData(tmp);
+            console.log(resp.data);
+        });
+      }, []);
+
+    // useEffect(()=>{
+    //     const timer = setInterval(()=>{
+    //         axios.get("/data/recentBoardCount").then((resp)=>{setRecentBoard(resp.data)});
+    //     },5000);
+    //     return ()=>{clearInterval(timer)}
+    // },[]);
 
     return(
         <Card {...''} style={{height:459}}>
@@ -130,7 +259,7 @@ export const BoardChart = () => {
                 type: 'linear',
                 min: 'auto',
                 max: 'auto',
-                stacked: true,
+                stacked: false,
                 reverse: false
             }}
             yFormat=" >-.2f"
