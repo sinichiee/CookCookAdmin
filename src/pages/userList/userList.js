@@ -3,7 +3,8 @@ import { Table, Pagination } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useTheme } from '@mui/material/styles';
-import { AppCurrentVisits } from '../../sections/@dashboard/app';
+import { Card, CardHeader } from '@mui/material';
+import { ResponsivePie } from '@nivo/pie';
 import style from "./userList.module.css"
 
 const ClientUserList = () => {
@@ -168,19 +169,155 @@ export const CurrentVisits = () => {
       },5000);
       return ()=>{clearInterval(timer)}
   },[]);
+
+  const visits = [
+    {
+      "id": "Business",
+      "label": "Business",
+      "value": recentVisitCount.recentVisitBusiness,
+      "color": "hsl(328, 70%, 50%)"
+  },
+  {
+    "id": "Client",
+    "label": "Client",
+    "value":  recentVisitCount.recentVisitClient,
+    "color": "hsl(163, 70%, 50%)"
+  },
+  ]
   
   return (
-    <AppCurrentVisits
-              title="Current Visits"
-              chartData={[
-                { label: 'Business Member', value: recentVisitCount.recentVisitBusiness },
-                { label: 'Client Member', value: recentVisitCount.recentVisitClient },
-              ]}
-              chartColors={[
-                theme.palette.error.main,
-                theme.palette.primary.main,
-              ]}
+    <Card {...''} style={{height:459}}>
+        <CardHeader title="Current Visits" subheader="" style={{float:'left'}}/>
+            <ResponsivePie
+                data={visits}
+                margin={{ top: 40, right: 80, bottom: 140, left: 80 }}
+                innerRadius={0.5}
+                padAngle={0.7}
+                cornerRadius={3}
+                activeOuterRadiusOffset={8}
+                colors={{ scheme: 'accent' }}
+                borderWidth={1}
+                borderColor={{
+                    from: 'color',
+                    modifiers: [
+                        [
+                            'darker',
+                            0.2
+                        ]
+                    ]
+                }}
+                enableArcLinkLabels={false}
+                arcLinkLabelsSkipAngle={10}
+                arcLinkLabelsTextColor="#333333"
+                arcLinkLabelsThickness={2}
+                arcLinkLabelsColor={{ from: 'color' }}
+                arcLabelsSkipAngle={10}
+                arcLabelsTextColor={{
+                    from: 'color',
+                    modifiers: [
+                        [
+                            'darker',
+                            2
+                        ]
+                    ]
+                }}
+                defs={[
+                    {
+                        id: 'dots',
+                        type: 'patternDots',
+                        background: 'inherit',
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        size: 4,
+                        padding: 1,
+                        stagger: true
+                    },
+                    {
+                        id: 'lines',
+                        type: 'patternLines',
+                        background: 'inherit',
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        rotation: -45,
+                        lineWidth: 6,
+                        spacing: 10
+                    }
+                ]}
+                fill={[
+                    {
+                        match: {
+                            id: 'ruby'
+                        },
+                        id: 'dots'
+                    },
+                    {
+                        match: {
+                            id: 'c'
+                        },
+                        id: 'dots'
+                    },
+                    {
+                        match: {
+                            id: 'go'
+                        },
+                        id: 'dots'
+                    },
+                    {
+                        match: {
+                            id: 'python'
+                        },
+                        id: 'dots'
+                    },
+                    {
+                        match: {
+                            id: 'scala'
+                        },
+                        id: 'lines'
+                    },
+                    {
+                        match: {
+                            id: 'lisp'
+                        },
+                        id: 'lines'
+                    },
+                    {
+                        match: {
+                            id: 'elixir'
+                        },
+                        id: 'lines'
+                    },
+                    {
+                        match: {
+                            id: 'javascript'
+                        },
+                        id: 'lines'
+                    }
+                ]}
+                legends={[
+                    {
+                        anchor: 'bottom',
+                        direction: 'row',
+                        justify: false,
+                        translateX: 30,
+                        translateY: 50,
+                        itemsSpacing: 0,
+                        itemWidth: 100,
+                        itemHeight: 18,
+                        itemTextColor: '#999',
+                        itemDirection: 'left-to-right',
+                        itemOpacity: 1,
+                        symbolSize: 18,
+                        symbolShape: 'circle',
+                        effects: [
+                            {
+                                on: 'hover',
+                                style: {
+                                    itemTextColor: '#000'
+                                }
+                            }
+                        ]
+                    }
+                ]}
             />
+        </Card>
   );
 }
 

@@ -48,6 +48,7 @@
     "@iconify/react": "^4.1.0",
     "@mui/lab": "^5.0.0-alpha.103",
     "@mui/material": "^5.13.6",
+    "@nivo/line": "^0.83.0",
     "@nivo/pie": "^0.83.0",
     "apexcharts": "^3.37.0",
     "axios": "^1.4.0",

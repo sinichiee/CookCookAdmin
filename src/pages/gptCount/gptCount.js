@@ -46,7 +46,7 @@ export const MealPieChart = () => {
         <CardHeader title="식단 생성 통계" subheader="" style={{float:'left'}}/>
             <ResponsivePie
                 data={tmp}
-                margin={{ top: 0, right: 40, bottom: 100, left: 40 }}
+                margin={{ top: 20, right: 60, bottom: 120, left: 60 }}
                 innerRadius={0.5}
                 padAngle={0.7}
                 cornerRadius={3}
@@ -214,7 +214,7 @@ export const BasketPieChart = () => {
         <CardHeader title="재료 추출 통계" subheader="" style={{float:'left'}} />
         <ResponsivePie
         data={basketData}
-        margin={{ top: 0, right: 40, bottom: 100, left: 40 }}
+        margin={{ top: 20, right: 60, bottom: 120, left: 60 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
@@ -346,7 +346,7 @@ export const TotalPieChart = () => {
         <CardHeader title="총 이용 통계" subheader="" style={{float:'left',}} />
         <ResponsivePie 
         data={totalData}
-        margin={{ top: 0, right: 40, bottom: 100, left: 40 }}
+        margin={{ top: 20, right: 60, bottom: 120, left: 60 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
