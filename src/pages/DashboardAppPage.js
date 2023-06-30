@@ -18,6 +18,7 @@ import {
   AppConversionRates,
 } from '../sections/@dashboard/app';
 import { BasketPieChart, MealPieChart, TotalPieChart } from './gptCount/gptCount';
+import { CurrentVisits } from './userList/userList';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          CookCook
         </Typography>
 
         <Grid container spacing={3}>
@@ -90,21 +91,7 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentVisits
-              title="Current Visits"
-              chartData={[
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
-              ]}
-              chartColors={[
-                theme.palette.primary.main,
-                theme.palette.info.main,
-                theme.palette.warning.main,
-                theme.palette.error.main,
-              ]}
-            />
+            <CurrentVisits />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>

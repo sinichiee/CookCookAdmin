@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import { useTheme } from '@mui/material/styles';
+import { AppCurrentVisits } from '../../sections/@dashboard/app';
 import style from "./userList.module.css"
 
 const ClientUserList = () => {
@@ -36,7 +38,7 @@ const ClientUserList = () => {
         console.error(error);
       });
   };
-  //페이지 비동기
+  // 페이지 비동기
   const handleButton1Click = async () => {
     try {
       const response = await axios.get('/data/clientUserList');
@@ -148,5 +150,38 @@ const ClientUserList = () => {
     </div>
   );
 };
+
+export const CurrentVisits = () => {
+  const theme = useTheme();
+  
+  const [recentVisitCount, setRecentVisitCount] = useState({
+    "recentVisitBusiness":0, "recentVisitClient":0
+  });
+
+  useEffect(()=>{
+      axios.get("/data/recentVisitCount").then((resp)=>{setRecentVisitCount(resp.data)});
+    }, []);
+
+  useEffect(()=>{
+      const timer = setInterval(()=>{
+          axios.get("/data/recentVisitCount").then((resp)=>{setRecentVisitCount(resp.data)});
+      },5000);
+      return ()=>{clearInterval(timer)}
+  },[]);
+  
+  return (
+    <AppCurrentVisits
+              title="Current Visits"
+              chartData={[
+                { label: 'Business Member', value: recentVisitCount.recentVisitBusiness },
+                { label: 'Client Member', value: recentVisitCount.recentVisitClient },
+              ]}
+              chartColors={[
+                theme.palette.error.main,
+                theme.palette.primary.main,
+              ]}
+            />
+  );
+}
 
 export default ClientUserList;
