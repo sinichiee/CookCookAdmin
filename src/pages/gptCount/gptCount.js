@@ -316,7 +316,7 @@ export const TotalPieChart = () => {
     });
 
     useEffect(()=>{
-        axios.get("/data/selectTotalCount").then((resp)=>{console.log(resp.data);setTotalCount(resp.data)});
+        axios.get("/data/selectTotalCount").then((resp)=>{setTotalCount(resp.data)});
       }, []);
 
     useEffect(()=>{
