@@ -1,15 +1,19 @@
 import axios from 'axios';
 import { faker } from '@faker-js/faker';
 import { sample } from 'lodash';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
-const USERLIST = async () => {
-  const response = await axios.get('/data/clientUserList');
-  return response.data.list;
-};
-
-
-
+// const USERLIST = async () => {
+//   const [users, setUser] = useState();
+//   const response = await axios.get('/data/selectUserList').then((resp) => {
+//     console.log(resp);
+//   });
+  
+// };
+axios.get('/data/selectUserList').then((resp) => {
+  console.log(resp);
+});
 const users = [...Array(24)].map((_, index) => ({
   id: faker.datatype.uuid(),
   avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
