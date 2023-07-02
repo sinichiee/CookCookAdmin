@@ -16,6 +16,7 @@ import ShopSearch from '../../../pages/shop/shopSearch';
 
 export default function ProductList() {
 
+  const [searchShop, setSearchShop] = useState({search:""});
   const [shopList, setShopList] = useState([]);
 
   useEffect(() => {
@@ -31,13 +32,13 @@ export default function ProductList() {
 
   return (
     <>
-      <ShopSearch posts={shopList} />
+      <ShopSearch posts={shopList} setSearchShop={setSearchShop} />
       
       <Grid container spacing={3}>
         {
           shopList.map((shop, i) => (
             <Grid key={i} item xs={12} sm={6} md={3}>
-              <ShopProductCard shop={shop} />
+              <ShopProductCard shop={shop} searchShop={searchShop} />
             </Grid>
           ))
         }

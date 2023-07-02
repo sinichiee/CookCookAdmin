@@ -23,7 +23,7 @@ ShopProductCard.propTypes = {
   product: PropTypes.object,
 };
 
-export default function ShopProductCard({shop}) {
+export default function ShopProductCard({shop, searchShop}) {
 
   console.log({shop});
   let status = "";
@@ -33,6 +33,10 @@ export default function ShopProductCard({shop}) {
     status = "공구 완료";
   }else {
     status = "공구 실패";
+  }
+  console.log(searchShop);
+  if(shop.title === searchShop){
+    console.log('aa');
   }
 
   return (

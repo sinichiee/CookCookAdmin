@@ -1,20 +1,8 @@
+CookCookAdmin
+
+
 ## Minimal [(Free version)](https://minimal-kit-react.vercel.app/)
 
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
-
-> Free React Admin Dashboard made with Material-UI components and React.
-
-![preview](public/assets/preview.jpg)
-
-| [Minimal Free](https://minimal-kit-react.vercel.app/) | [Minimal](https://material-ui.com/store/items/minimal-dashboard/) |
-| ----------------------------------------------------- | :---------------------------------------------------------------- |
-| **6** Demo pages                                      | **50+** demo pages                                                |
-| -                                                     | ✓ Multi-language                                                  |
-| -                                                     | ✓ Dark/Light Mode 🌓                                              |
-| -                                                     | ✓ [More components](https://minimals.cc/components)               |
-| -                                                     | ✓ Next.js version                                                 |
-| -                                                     | ✓ TypeScript version                                              |
-| -                                                     | ✓ Design files (Figma & Sketch)                                   |
 
 ## Page demo
 
