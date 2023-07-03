@@ -35,8 +35,10 @@ import USERLIST from '../_mock/user';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Id', alignRight: false },
-  { id: 'company', label: 'Nickname', alignRight: false },
+  { id: 'nickname', label: 'Nickname', alignRight: false },
+  { id: 'company', label: 'company', alignRight: false },
   { id: 'role', label: 'Auth', alignRight: false },
+  { id: 'report', label: 'reportCount', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
@@ -178,7 +180,7 @@ export default function UserPage() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl} = row;
+                    const { id, name, role, status, company, nickname, reportCount, avatarUrl } = row;
                     const selectedUser = selected.indexOf(name) !== -1;
 
                     return (
@@ -186,7 +188,7 @@ export default function UserPage() {
                         <TableCell padding="checkbox">
                           <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
                         </TableCell>
-
+                        {/* id */}
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Avatar alt={name} src={avatarUrl} />
@@ -195,15 +197,19 @@ export default function UserPage() {
                             </Typography>
                           </Stack>
                         </TableCell>
-
+                        {/* nickname */}
+                        <TableCell align="left">{nickname}</TableCell>
+                        {/* company */}
                         <TableCell align="left">{company}</TableCell>
-
+                        {/* auth */}
                         <TableCell align="left">{role}</TableCell>
-
+                        {/* reportCount */}
+                        <TableCell align="left">{reportCount}</TableCell>
+                        {/* status */}
                         <TableCell align="left">
                           <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
                         </TableCell>
-
+                        {/* menu - delete / modi */}
                         <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
                             <Iconify icon={'eva:more-vertical-fill'} />
