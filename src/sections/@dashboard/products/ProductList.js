@@ -13,6 +13,11 @@ import ShopProductCard from '../../../pages/shop/shop';
 
 export default function ProductList({ filterShop }) {
 
+  console.log(filterShop);
+  if(filterShop === null){
+    
+    console.log("값이없다");
+  }
   return (
     <Grid container spacing={3}>
         {
