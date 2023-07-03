@@ -1,9 +1,22 @@
+import axios from 'axios';
 import PropTypes from 'prop-types';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Toolbar, Tooltip, IconButton, Typography, OutlinedInput, InputAdornment } from '@mui/material';
 // component
 import Iconify from '../../../components/iconify';
+
+
+// banUser onclick -----------------------------------------------------
+  const banUser = (codeArr)=>{
+    axios.post('/data/banMember', {"memberCodeArr" : codeArr})
+    .then((resp) => {
+      console.log(resp);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
 
 // ----------------------------------------------------------------------
 
@@ -31,14 +44,14 @@ const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
-
 UserListToolbar.propTypes = {
   numSelected: PropTypes.number,
+  codeSelected: PropTypes.array,
   filterName: PropTypes.string,
   onFilterName: PropTypes.func,
 };
 
-export default function UserListToolbar({ numSelected, filterName, onFilterName }) {
+export default function UserListToolbar({ codeSelected, numSelected, filterName, onFilterName }) {
   return (
     <StyledRoot
       sx={{
@@ -67,7 +80,7 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={() => { console.log(numSelected);}}>
+          <IconButton onClick={() => { banUser(codeSelected); }}>
             <Iconify icon="eva:trash-2-fill" />
           </IconButton>
         </Tooltip>
