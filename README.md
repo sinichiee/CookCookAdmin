@@ -1,28 +1,25 @@
-CookCookAdmin
+# CookCookAdmin
+
+KH - Final Project
 
 
-## Minimal [(Free version)](https://minimal-kit-react.vercel.app/)
+CookCook 은 openAI를 활용한 식단 추천, 식단표 구성, 식단의 재료 추출 및 장바구니 등록이 가능하며,
+식재료 공동구매를 할 수 있는 공구샵과 유저들간 소통할 수 있는 게시판으로 이루어져 있는 반응형 웹페이지 입니다.
+
+참고 : [CookCook GitHub](https://github.com/sinichiee/CookCook.git)
+
+CookCookAdmin 에서는 CookCook 웹페이지의 관리자 페이지를 React 를 이용하여 구성하였습니다.
 
 
-## Page demo
+제작기간 : 2주(2023.06.27 ~ 2023.07.05)
 
-- [Dashboard](https://minimal-kit-react.vercel.app/dashboard/app)
-- [Users](https://minimal-kit-react.vercel.app/dashboard/user)
-- [Product](https://minimal-kit-react.vercel.app/dashboard/products)
-- [Blog](https://minimal-kit-react.vercel.app/dashboard/blog)
-- [Login](https://minimal-kit-react.vercel.app/login)
-- [Not Found](https://minimal-kit-react.vercel.app/404)
 
-## Getting started
+### Contributor
+- @eunzee3 (최은지)
+- @subins1993 (양수빈)
+- @swkimsw (김승우)
+- @dmsalsgml (이가은)
+- @sinichiee (김신희)
+- @agji12 (김은지)
+- @Uoioio (조유진)
 
-- Recommended `node js 16.x` and `npm 6+`. (suggestion v16.15.0)
-- Install dependencies: `npm install` / `yarn install`
-- Start the project: `npm run start` / `yarn start`
-
-## License
-
-Distributed under the MIT License. See [LICENSE](https://github.com/minimal-ui-kit/minimal.free/blob/main/LICENSE.md) for more information.
-
-## Contact us
-
-Email Us: support@minimals.cc
