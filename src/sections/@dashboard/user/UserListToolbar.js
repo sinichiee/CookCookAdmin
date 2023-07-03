@@ -9,9 +9,14 @@ import Iconify from '../../../components/iconify';
 
 // banUser onclick -----------------------------------------------------
   const banUser = (codeArr)=>{
-    axios.post('/data/banMember', {"memberCodeArr" : codeArr})
+    axios.post('/data/banMember',JSON.stringify({ memberCodeArr : codeArr}),{
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    })
     .then((resp) => {
       console.log(resp);
+      window.location.reload();
     })
     .catch((err) => {
       console.log(err);
