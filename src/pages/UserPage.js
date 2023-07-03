@@ -145,17 +145,6 @@ export default function UserPage() {
       )
   }, []);
 
-// banUser onclick -----------------------------------------------------
-  // const banUser = (id)=>{
-  //   axios.post('/data/banMember', {"memberCode" : id})
-  //   .then((resp) => {
-  //     console.log(resp);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // };
-
   // const handleOpenMenu = (event) => {
   //   setOpen(event.currentTarget);
   // };
@@ -246,7 +235,7 @@ export default function UserPage() {
         </Stack>
 
         <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <UserListToolbar  codeSelected={selectedCode} numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
