@@ -107,36 +107,64 @@ export default function UserPage() {
     axios.all([axios.post('/data/selectUserList'), axios.post('/data/selectBanUserList')])
       .then(
         axios.spread((resp1, resp2) => {
-
+          console.log(resp1);
+          console.log(resp2);
           let tmp = [];
           if(resp1.data.length > 0){ 
             tmp = resp1.data.map((e, i) => {
-              return({
-                code: e.code,
-                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
-                id: e.id,
-                nickname: e.nickName,
-                companyName: e.companyName,
-                status: setBannedStatus(e.strDelDate),
-                auth: e.auth,
-                reportCount: e.reportCount
-              })
+              if(e.id === 'no data'){
+                return({
+                  code: e.code,
+                  avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                  id: e.businessId,
+                  nickname: e.nickName,
+                  companyName: e.companyName,
+                  status: setBannedStatus(e.strDelDate),
+                  auth: e.auth,
+                  reportCount: e.reportCount
+                })
+              }
+              if (e.businessId === 'no data'){
+                return({
+                  code: e.code,
+                  avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                  id: e.id,
+                  nickname: e.nickName,
+                  companyName: e.companyName,
+                  status: setBannedStatus(e.strDelDate),
+                  auth: e.auth,
+                  reportCount: e.reportCount
+                })
+              }
             });
-           
           }
   
           if(resp2.data.length > 0){ 
             tmp = [...tmp, resp2.data.map((e, i) => {
-              return({
-                code: e.code,
-                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
-                id: e.id,
-                nickname: e.nickName,
-                companyName: e.companyName,
-                status: setBannedStatus(e.strDelDate),
-                auth: e.auth,
-                reportCount: e.reportCount
-              })
+              if(e.id === 'no data'){
+                return({
+                  code: e.code,
+                  avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                  id: e.businessId,
+                  nickname: e.nickName,
+                  companyName: e.companyName,
+                  status: setBannedStatus(e.strDelDate),
+                  auth: e.auth,
+                  reportCount: e.reportCount
+                })
+              }
+              if (e.businessId === 'no data'){
+                return({
+                  code: e.code,
+                  avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                  id: e.id,
+                  nickname: e.nickName,
+                  companyName: e.companyName,
+                  status: setBannedStatus(e.strDelDate),
+                  auth: e.auth,
+                  reportCount: e.reportCount
+                })
+              }
             })]
           }
           console.log(tmp);
