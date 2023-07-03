@@ -14,36 +14,19 @@ import ShopSearch from '../../../pages/shop/shopSearch';
 // };
 
 
-export default function ProductList() {
+export default function ProductList({ filterShop }) {
 
-  const [searchShop, setSearchShop] = useState({search:""});
-  const [shopList, setShopList] = useState([]);
-
-  useEffect(() => {
-    axios.request({
-      url: "/data/selectShopList"
-    }).then((resp) => {
-      setShopList(resp.data.shopList);
-      console.log(resp.data.shopList[0]);
-    }).catch((error) => {
-      console.log(error);
-    })
-  }, []);
+  console.log(filterShop);
 
   return (
-    <>
-      <ShopSearch posts={shopList} setSearchShop={setSearchShop} />
-      
-      <Grid container spacing={3}>
+    <Grid container spacing={3}>
         {
-          shopList.map((shop, i) => (
+          filterShop.map((shop, i) => (
             <Grid key={i} item xs={12} sm={6} md={3}>
-              <ShopProductCard shop={shop} searchShop={searchShop} />
+              <ShopProductCard shop={shop} />
             </Grid>
           ))
         }
-
-      </Grid>
-    </>
+    </Grid>
   );
 }
