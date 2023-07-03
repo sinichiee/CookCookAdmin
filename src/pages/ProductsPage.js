@@ -60,8 +60,7 @@ export default function ProductsPage() {
         </Stack>
         {/* 공구샵 리스트 뽑으러 감 */}
         <ProductList shopList={shopList} filterShop={filterShop} />
-
-        <ProductCartWidget />
+        
       </Container>
     </>
   );

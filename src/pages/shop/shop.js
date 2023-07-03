@@ -25,7 +25,6 @@ ShopProductCard.propTypes = {
 
 export default function ShopProductCard({shop}) {
 
-  console.log({shop});
   let status = "";
   if(shop.statusCode === 1001){
     status = "진행중";
