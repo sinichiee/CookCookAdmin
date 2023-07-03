@@ -1,7 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 // @mui
 import {
   Card,
@@ -29,18 +31,17 @@ import Scrollbar from '../components/scrollbar';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
-import USERLIST from '../_mock/user';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Id', alignRight: false },
   { id: 'nickname', label: 'Nickname', alignRight: false },
-  { id: 'company', label: 'company', alignRight: false },
-  { id: 'role', label: 'Auth', alignRight: false },
+  { id: 'companyName', label: 'company', alignRight: false },
+  { id: 'auth', label: 'Auth', alignRight: false },
   { id: 'report', label: 'reportCount', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
-  { id: '' },
+  // { id: '' },
 ];
 
 // ----------------------------------------------------------------------
@@ -69,7 +70,7 @@ function applySortFilter(array, comparator, query) {
     return a[1] - b[1];
   });
   if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (_user) => _user.id.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
@@ -83,19 +84,85 @@ export default function UserPage() {
 
   const [selected, setSelected] = useState([]);
 
+  const [selectedCode, setSelectedCode] = useState([]);
+
   const [orderBy, setOrderBy] = useState('name');
 
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleOpenMenu = (event) => {
-    setOpen(event.currentTarget);
-  };
+  // UserList -------------------------------------------------------------
+  const [USERLIST, setUSERLIST] = useState([]);
+  let status;
+  function setBannedStatus(strDelDate){
+    if(strDelDate === "no data"){
+      status = "active";
+    }else{
+      status = "ban";
+    }
+    return status;
+  }
+  useEffect(() => {
+    axios.all([axios.post('/data/selectUserList'), axios.post('/data/selectBanUserList')])
+      .then(
+        axios.spread((resp1, resp2) => {
 
-  const handleCloseMenu = () => {
-    setOpen(null);
-  };
+          let tmp = [];
+          if(resp1.data.length > 0){ 
+            tmp = resp1.data.map((e, i) => {
+              return({
+                code: e.code,
+                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                id: e.id,
+                nickname: e.nickName,
+                companyName: e.companyName,
+                status: setBannedStatus(e.strDelDate),
+                auth: e.auth,
+                reportCount: e.reportCount
+              })
+            });
+           
+          }
+  
+          if(resp2.data.length > 0){ 
+            tmp = [...tmp, resp2.data.map((e, i) => {
+              return({
+                code: e.code,
+                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                id: e.id,
+                nickname: e.nickName,
+                companyName: e.companyName,
+                status: setBannedStatus(e.strDelDate),
+                auth: e.auth,
+                reportCount: e.reportCount
+              })
+            })]
+          }
+          console.log(tmp);
+          setUSERLIST(tmp);
+        })
+      )
+  }, []);
+
+// banUser onclick -----------------------------------------------------
+  // const banUser = (id)=>{
+  //   axios.post('/data/banMember', {"memberCode" : id})
+  //   .then((resp) => {
+  //     console.log(resp);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // };
+
+  // const handleOpenMenu = (event) => {
+  //   setOpen(event.currentTarget);
+  // };
+
+  // const handleCloseMenu = () => {
+  //   setOpen(null);
+  // };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -105,26 +172,40 @@ export default function UserPage() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
+      const newSelecteds = USERLIST.map((n) => n.id);
       setSelected(newSelecteds);
+      const newSelectedsCode = USERLIST.map((n) => n.code);
+      setSelectedCode(newSelectedsCode);
       return;
     }
     setSelected([]);
+    setSelectedCode([]);
+    console.log(selectedCode);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, id, code) => {
+    console.log(id);
+    console.log(code);
+    const selectedIndex = selected.indexOf(id);
+
     let newSelected = [];
+    let newSelectedCode = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
+      newSelectedCode = newSelectedCode.concat(selectedCode, code);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
+      newSelectedCode = newSelectedCode.concat(selectedCode.slice(1));
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelectedCode = newSelectedCode.concat(selectedCode.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+      newSelectedCode = newSelectedCode.concat(selectedCode.slice(0, selectedIndex), selectedCode.slice(selectedIndex + 1));
     }
     setSelected(newSelected);
+    setSelectedCode(newSelectedCode);
+    console.log(newSelectedCode);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -137,6 +218,7 @@ export default function UserPage() {
   };
 
   const handleFilterByName = (event) => {
+    console.log(1111111);
     setPage(0);
     setFilterName(event.target.value);
   };
@@ -150,7 +232,7 @@ export default function UserPage() {
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> UserList | CookCook</title>
       </Helmet>
 
       <Container>
@@ -180,29 +262,29 @@ export default function UserPage() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, nickname, reportCount, avatarUrl } = row;
-                    const selectedUser = selected.indexOf(name) !== -1;
+                    const {code, avatarUrl, id, nickname, companyName, status, auth, reportCount } = row;
+                    const selectedUser = selected.indexOf(id) !== -1;
 
                     return (
-                      <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
+                      <TableRow hover key={code} tabIndex={-1} role="checkbox" selected={selectedUser}>
                         <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
+                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, id, code)} />
                         </TableCell>
                         {/* id */}
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
+                            <Avatar alt={id} src={avatarUrl} />
                             <Typography variant="subtitle2" noWrap>
-                              {name}
+                              {id}
                             </Typography>
                           </Stack>
                         </TableCell>
                         {/* nickname */}
                         <TableCell align="left">{nickname}</TableCell>
                         {/* company */}
-                        <TableCell align="left">{company}</TableCell>
+                        <TableCell align="left">{companyName}</TableCell>
                         {/* auth */}
-                        <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{auth}</TableCell>
                         {/* reportCount */}
                         <TableCell align="left">{reportCount}</TableCell>
                         {/* status */}
@@ -210,11 +292,11 @@ export default function UserPage() {
                           <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
                         </TableCell>
                         {/* menu - delete / modi */}
-                        <TableCell align="right">
+                        {/* <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     );
                   })}
@@ -235,13 +317,12 @@ export default function UserPage() {
                           }}
                         >
                           <Typography variant="h6" paragraph>
-                            Not found
+                            회원을 찾을 수 없습니다.
                           </Typography>
 
                           <Typography variant="body2">
-                            No results found for &nbsp;
-                            <strong>&quot;{filterName}&quot;</strong>.
-                            <br /> Try checking for typos or using complete words.
+                            <strong>&quot;{filterName}&quot;</strong>에 대한 검색결과가 없습니다.
+                            <br /> 없는 회원이거나 다른 검색어를 입력해 보세요😥.
                           </Typography>
                         </Paper>
                       </TableCell>
@@ -264,7 +345,7 @@ export default function UserPage() {
         </Card>
       </Container>
 
-      <Popover
+      {/* <Popover
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleCloseMenu}
@@ -287,11 +368,11 @@ export default function UserPage() {
           Edit
         </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }}>
+        <MenuItem sx={{ color: 'error.main' }} >
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>
-      </Popover>
+      </Popover> */}
     </>
   );
 }
