@@ -52,7 +52,7 @@ export default function ShopProductCard({shop}) {
             {status}
           </Label>
         )}
-        <StyledProductImg alt='' src={shop.path + shop.sysName} />
+        <a href={`http://localhost/shop/toShopApply?code=${shop.code}`}><StyledProductImg alt='' src={shop.path + shop.sysName} /></a>
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>

@@ -14,15 +14,6 @@ import ShopSearch from './shop/shopSearch';
 // ----------------------------------------------------------------------
 
 export default function ProductsPage() {
-  // const [openFilter, setOpenFilter] = useState(false);
-
-  // const handleOpenFilter = () => {
-  //   setOpenFilter(true);
-  // };
-
-  // const handleCloseFilter = () => {
-  //   setOpenFilter(false);
-  // };
 
   const [searchShop, setSearchShop] = useState("");
   const [shopList, setShopList] = useState([]);
@@ -55,11 +46,11 @@ export default function ProductsPage() {
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
             {/* 검색 창 */}
-            <ShopSearch posts={shopList} setSearchShop={setSearchShop} />
+            <ShopSearch posts={shopList} searchShop={searchShop} setSearchShop={setSearchShop} />
           </Stack>
         </Stack>
         {/* 공구샵 리스트 뽑으러 감 */}
-        <ProductList shopList={shopList} filterShop={filterShop} />
+        <ProductList shopList={shopList} filterShop={filterShop} searchShop={searchShop} />
         
       </Container>
     </>
