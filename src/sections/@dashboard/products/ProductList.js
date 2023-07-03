@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { Stack } from 'react-bootstrap';
 import ShopProductCard from '../../../pages/shop/shop';
-import ShopSearch from '../../../pages/shop/shopSearch';
 
 
 // ----------------------------------------------------------------------
@@ -15,8 +12,6 @@ import ShopSearch from '../../../pages/shop/shopSearch';
 
 
 export default function ProductList({ filterShop }) {
-
-  console.log(filterShop);
 
   return (
     <Grid container spacing={3}>
