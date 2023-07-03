@@ -99,7 +99,7 @@ export default function UserPage() {
     if(strDelDate === "no data"){
       status = "active";
     }else{
-      status = "ban";
+      status = "banned";
     }
     return status;
   }
@@ -108,7 +108,7 @@ export default function UserPage() {
       .then(
         axios.spread((resp1, resp2) => {
           console.log(resp1);
-          console.log(resp2);
+          console.log
           let tmp = [];
           if(resp1.data.length > 0){ 
             tmp = resp1.data.map((e, i) => {
@@ -140,9 +140,10 @@ export default function UserPage() {
           }
   
           if(resp2.data.length > 0){ 
-            tmp = [...tmp, resp2.data.map((e, i) => {
+            resp2.data.map((e, i) => {
+              console.log(e.strDelDate);
               if(e.id === 'no data'){
-                return({
+                tmp.push({
                   code: e.code,
                   avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
                   id: e.businessId,
@@ -152,9 +153,10 @@ export default function UserPage() {
                   auth: e.auth,
                   reportCount: e.reportCount
                 })
+                return(tmp)
               }
               if (e.businessId === 'no data'){
-                return({
+                tmp.push({
                   code: e.code,
                   avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
                   id: e.id,
@@ -164,8 +166,9 @@ export default function UserPage() {
                   auth: e.auth,
                   reportCount: e.reportCount
                 })
+                return(tmp)
               }
-            })]
+            })
           }
           console.log(tmp);
           setUSERLIST(tmp);
@@ -197,12 +200,9 @@ export default function UserPage() {
     }
     setSelected([]);
     setSelectedCode([]);
-    console.log(selectedCode);
   };
 
   const handleClick = (event, id, code) => {
-    console.log(id);
-    console.log(code);
     const selectedIndex = selected.indexOf(id);
 
     let newSelected = [];
@@ -222,7 +222,6 @@ export default function UserPage() {
     }
     setSelected(newSelected);
     setSelectedCode(newSelectedCode);
-    console.log(newSelectedCode);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -235,7 +234,6 @@ export default function UserPage() {
   };
 
   const handleFilterByName = (event) => {
-    console.log(1111111);
     setPage(0);
     setFilterName(event.target.value);
   };
@@ -285,7 +283,7 @@ export default function UserPage() {
                     return (
                       <TableRow hover key={code} tabIndex={-1} role="checkbox" selected={selectedUser}>
                         <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, id, code)} />
+                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, id, code)} disabled={status === 'banned' ? true : false }/>
                         </TableCell>
                         {/* id */}
                         <TableCell component="th" scope="row" padding="none">
