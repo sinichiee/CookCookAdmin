@@ -122,12 +122,6 @@ export const BoardChart = () => {
     ]
     );
 
-    const [recentBoard, setRecentBoard] = useState({
-        Announcement:[{regDate:getFormedDate(6), cnt:0}], 
-        Free:[{regDate:getFormedDate(6), cnt:0}], 
-        Review:[{regDate:getFormedDate(6), cnt:0}]
-    });
-
     useEffect(()=>{
         axios.get("/data/recentBoardCount")
         .then((resp)=>{
