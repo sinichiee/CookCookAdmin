@@ -27,7 +27,7 @@ const HorizonLine = () => {
 export default function ProductList({ filterShop, searchShop }) {
 
   if (filterShop.length === 0) {
-    console.log('a')
+    
     return (
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12} md={12} style={{textAlign:'center'}}>

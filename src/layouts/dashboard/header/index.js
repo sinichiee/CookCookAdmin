@@ -66,8 +66,8 @@ export default function Header({ onOpenNav }) {
             xs: 0.5,
             sm: 1,
           }}
-        >
-        </Stack>
+        />
+        
       </StyledToolbar>
     </StyledRoot>
   );
