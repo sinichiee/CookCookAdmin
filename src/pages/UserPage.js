@@ -107,68 +107,54 @@ export default function UserPage() {
     axios.all([axios.post('/data/selectUserList'), axios.post('/data/selectBanUserList')])
       .then(
         axios.spread((resp1, resp2) => {
-          console.log(resp1);
-          console.log
           let tmp = [];
-          if(resp1.data.length > 0){ 
+          
+          if(resp1.data.length > 0){
             tmp = resp1.data.map((e, i) => {
-              if(e.id === 'no data'){
-                return({
-                  code: e.code,
-                  avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
-                  id: e.businessId,
-                  nickname: e.nickName,
-                  companyName: e.companyName,
-                  status: setBannedStatus(e.strDelDate),
-                  auth: e.auth,
-                  reportCount: e.reportCount
-                })
-              }
-              if (e.businessId === 'no data'){
-                return({
-                  code: e.code,
-                  avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
-                  id: e.id,
-                  nickname: e.nickName,
-                  companyName: e.companyName,
-                  status: setBannedStatus(e.strDelDate),
-                  auth: e.auth,
-                  reportCount: e.reportCount
-                })
-              }
-            });
-          }
-  
-          if(resp2.data.length > 0){ 
-            resp2.data.map((e, i) => {
-              console.log(e.strDelDate);
-              if(e.id === 'no data'){
-                tmp.push({
-                  code: e.code,
-                  avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
-                  id: e.businessId,
-                  nickname: e.nickName,
-                  companyName: e.companyName,
-                  status: setBannedStatus(e.strDelDate),
-                  auth: e.auth,
-                  reportCount: e.reportCount
-                })
-                return(tmp)
-              }
-              if (e.businessId === 'no data'){
-                tmp.push({
-                  code: e.code,
-                  avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
-                  id: e.id,
-                  nickname: e.nickName,
-                  companyName: e.companyName,
-                  status: setBannedStatus(e.strDelDate),
-                  auth: e.auth,
-                  reportCount: e.reportCount
-                })
-                return(tmp)
+              return (e.id === 'no data') ? 
+              {
+                code: e.code,
+                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                id: e.businessId,
+                nickname: e.nickName,
+                companyName: e.companyName,
+                status: setBannedStatus(e.strDelDate),
+                auth: e.auth,
+                reportCount: e.reportCount
+              } : {
+                code: e.code,
+                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                id: e.id,
+                nickname: e.nickName,
+                companyName: e.companyName,
+                status: setBannedStatus(e.strDelDate),
+                auth: e.auth,
+                reportCount: e.reportCount
               }
             })
+          }
+          if(resp2.data.length > 0){
+            tmp = [...tmp, ...resp2.data.map((e, i) => {
+              return (e.id === 'no data') ? {
+                code: e.code,
+                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                id: e.businessId,
+                nickname: e.nickName,
+                companyName: e.companyName,
+                status: setBannedStatus(e.strDelDate),
+                auth: e.auth,
+                reportCount: e.reportCount
+              } : {
+                code: e.code,
+                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                id: e.id,
+                nickname: e.nickName,
+                companyName: e.companyName,
+                status: setBannedStatus(e.strDelDate),
+                auth: e.auth,
+                reportCount: e.reportCount
+              }
+            })]
           }
           console.log(tmp);
           setUSERLIST(tmp);
@@ -283,7 +269,7 @@ export default function UserPage() {
                     return (
                       <TableRow hover key={code} tabIndex={-1} role="checkbox" selected={selectedUser}>
                         <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, id, code)} disabled={status === 'banned' ? true : false }/>
+                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, id, code)} disabled={status === 'banned'}/>
                         </TableCell>
                         {/* id */}
                         <TableCell component="th" scope="row" padding="none">
