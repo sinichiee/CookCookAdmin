@@ -26,7 +26,6 @@ const HorizonLine = () => {
 
 export default function ProductList({ filterShop, searchShop }) {
 
-  console.log(filterShop);
   if (filterShop.length === 0) {
     console.log('a')
     return (
